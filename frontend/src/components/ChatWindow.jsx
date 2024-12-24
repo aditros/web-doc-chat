@@ -1,5 +1,6 @@
 import robot from '../assets/robot.jpg'
 import user from '../assets/user.png'
+import PropTypes from 'prop-types';
 
 const ChatWindow = ({ messages }) => {
   return (
@@ -25,6 +26,14 @@ const ChatWindow = ({ messages }) => {
       </div>
     </div>
   );
+};
+ChatWindow.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      sender: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ChatWindow;
