@@ -1,8 +1,10 @@
 import robot from '../assets/robot.jpg'
 import user from '../assets/user.png'
-import PropTypes from 'prop-types';
+import { MessageContext } from '../App';
+import { useContext } from 'react';
 
-const ChatWindow = ({ messages }) => {
+const ChatWindow = () => {
+  const [messages, setMessages] = useContext(MessageContext);
   return (
     <div className="w-full max-w-2xl bg-white shadow-md rounded-lg overflow-hidden">
       <div className="h-96 p-4 overflow-y-auto">
@@ -26,14 +28,6 @@ const ChatWindow = ({ messages }) => {
       </div>
     </div>
   );
-};
-ChatWindow.propTypes = {
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      sender: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default ChatWindow;

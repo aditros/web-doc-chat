@@ -1,40 +1,30 @@
-import { useState } from 'react'
-import { CreateMLCEngine } from "@mlc-ai/web-llm"
+import { useState, createContext } from 'react'
 import Layout from './components/Layout.jsx'
 import ChatWindow from './components/ChatWindow.jsx'
 import MessageInput from './components/MessageInput.jsx'
 
+const MessageContext = createContext()
+
 function App() {
-  // Initialize with a progress callback
-  const initProgressCallback = (progress) => {
-    console.log("Model loading progress:", progress)
-  }
-
-  let engine = null
-
-  useState(() => {
-    const prepare = async () => {
-      // Using CreateMLCEngine
-      engine = await CreateMLCEngine("Llama-3.2-1B-Instruct-q4f16_1-MLC", { initProgressCallback })
-    }
-    prepare()
-  });
 
   const [messages, setMessages] = useState([
-    { sender: 'other', text: 'Hello!' },
-    { sender: 'me', text: 'Hi! How are you?' },
+    { sender: 'other', text: 'Hello! how can I help you with?' },
   ]);
 
   const handleSendMessage = (message) => {
+    console.log('new message: ', message);
     setMessages([...messages, message]);
   };
 
   return (
-    <Layout>
-      <ChatWindow messages={messages} />
-      <MessageInput onSend={handleSendMessage} />
-    </Layout>
+    <MessageContext.Provider value={[messages, setMessages]}>
+      <Layout>
+        <ChatWindow/>
+        <MessageInput onSend={handleSendMessage} />
+      </Layout>
+    </MessageContext.Provider>
   );
 }
 
+export { MessageContext }
 export default App
