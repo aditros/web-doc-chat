@@ -37,7 +37,7 @@ const MessageInput = ({ onSend }) => {
             top_p: 1
           };
           engine.setInitProgressCallback(initProgressCallback)
-          await engine.reload("TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC-1k", config)
+          await engine.reload("Llama-3.2-1B-Instruct-q4f16_1-MLC", config)
           setIsModelLoaded(true)
           const answering = async () => {
             await doAnswer()
